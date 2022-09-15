@@ -124,6 +124,8 @@ describe('Board', function() {
     });
 
     it('should find a majorDiagonal conflict', function() {
+      //debugger;
+      console.log('==========test starts here==================');
       expect(board.hasAnyMajorDiagonalConflicts()).to.be.equal(true);
     });
 
