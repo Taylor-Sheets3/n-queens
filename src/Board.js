@@ -193,13 +193,7 @@
     //   // [-3, -2, -1, 0]
     // },
 
-    // _getFirstRowColumnIndexForMinorDiagonalOn: function(rowIndex, colIndex) {
-    //   return colIndex + rowIndex;
-    //   // [0, 1, 2, 3]
-    //   // [1, 2, 3, 4]
-    //   // [2, 3, 4, 5]
-    //   // [3, 4, 5, 6]
-    // },
+
     // Major Diagonals - go from top-left to bottom-right
     // --------------------------------------------------------------
     //
@@ -210,7 +204,6 @@
 
       let board = this.rows();
       //this._getRFCIFMajorD => index === parameter
-      console.log('board:', board);
       for (let i = 0; i < board.length; i ++) {
         for (let j = 0; j < board.length; j++) {
           let index = this._getFirstRowColumnIndexForMajorDiagonalOn(i, j);
@@ -218,7 +211,6 @@
             //counter ++;
             counter ++;
           }
-          console.log('i:', i, 'j', j, 'counter:', counter, 'board[i][j]:', board[i][j]);
         }
       }
       //if counter > 1 return true; else false;
@@ -244,8 +236,6 @@
         for (let j = 0; j < board.length; j++) {
           let index = this._getFirstRowColumnIndexForMajorDiagonalOn(i, j);
           let test = this.hasMajorDiagonalConflictAt(index);
-          console.log('i:', i, 'j:', j, 'test:', test, 'index:', index);
-
           if (test) {
             hasConflict = true;
           }
@@ -255,18 +245,63 @@
     },
 
 
-
+    // _getFirstRowColumnIndexForMinorDiagonalOn: function(rowIndex, colIndex) {
+    //   return colIndex + rowIndex;
+    //   // [0, 1, 2, 3]
+    //   // [1, 2, 3, 4]
+    //   // [2, 3, 4, 5]
+    //   // [3, 4, 5, 6]
+    // },
     // Minor Diagonals - go from top-right to bottom-left
     // --------------------------------------------------------------
     //
+
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      //create count variable
+      let count = 0;
+      //get the board
+      let board = this.rows();
+      //iterate through the rows
+      for (let i = 0; i < board.length; i++) {
+        //iterate through the columns
+        for (let j = 0; j < board.length; j++) {
+          //declare var index aand set to getFirstRowColumnIndexForMinorDiagonalOn(i,j)
+          let index = this._getFirstRowColumnIndexForMinorDiagonalOn(i, j);
+          //if index is equal to input arg and conflict is present
+          if (index === minorDiagonalColumnIndexAtFirstRow && board[i][j] === 1) {
+            //increment count
+            count++;
+          }
+        }
+      }
+      //if count is greater than 1
+      if (count > 1) {
+        //return true
+        return true;
+      }
+      //otherwise - return false
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      //declare conflicts var
+      let hasConflicts = false;
+      //declare board
+      let board = this.rows();
+      //iterate rows
+      for (let i = 0; i < board.length; i ++) {
+        //iterate columns
+        for (let j = 0; j < board.length; j++) {
+          let index = this._getFirstRowColumnIndexForMinorDiagonalOn(i, j);
+          let test = this.hasMinorDiagonalConflictAt(index);
+          if (test) {
+            hasConflicts = true;
+          }
+        }
+      }
+      return hasConflicts;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
